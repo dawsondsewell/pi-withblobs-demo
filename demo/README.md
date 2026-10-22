@@ -35,7 +35,7 @@ curl 'http://localhost:8787/after'               # answers: largest row ~0.5 KB,
 curl 'http://localhost:8787/after?enforce=2mb'   # still answers under the 2 MB rule
 ```
 
-Before deploying, create the bucket if it doesn't exist yet: `npx wrangler r2 bucket create pi-withblobs-demo`. After `wrangler deploy`, open `https://pi-withblobs-demo.<your-subdomain>.workers.dev/before` **without** the switch. Production enforces the 2 MB row limit, so this should fail the Session the same way `/before?enforce=2mb` does locally, and `/after` should answer. That production run was **not** done for this README: nothing here was deployed.
+Before deploying, create the bucket if it doesn't exist yet: `npx wrangler r2 bucket create pi-withblobs-demo`. After `wrangler deploy`, open `https://pi-withblobs-demo.<your-subdomain>.workers.dev/before` **without** the switch. Cloudflare documents a 2 MB row limit, so this was expected to fail the Session the same way `/before?enforce=2mb` does locally. But on 2026-10-22, a production check on a Workers Paid test account stored a 4,194,649-byte pi row twice without failing (see the top-level README). So `/before` may well answer in production.
 
 ## Why the local switch exists
 

@@ -6,6 +6,8 @@ On Cloudflare, [pi-durable](https://github.com/earendil-works/pi) stores each Se
 
 This repo is evidence for a contribution proposal to pi. It's a spike, not a published package.
 
+**Status, 2026-10-22: production didn't fail.** Cloudflare documents a 2 MB limit on a Durable Object row, but a production check on a Workers Paid test account stored a 4,194,649-byte pi row twice without the wrapper, and the turn finished normally. That check used another project's harness on pi-durable 1.3.0, not this demo. So the documented limit wasn't enforced that day. Meanwhile newer local workerd (1.20260815) refuses values over about 2.2 MB. Which environment fails, and when, depends on the runtime. The decorator keeps rows small either way.
+
 ## What's here
 
 - **`demo/`**: a runnable Worker that shows the failure and the fix with one scripted conversation and no API keys. See [demo/README.md](demo/README.md) for the walkthrough and the expected output.
